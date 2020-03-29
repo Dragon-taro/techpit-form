@@ -1,7 +1,6 @@
 export type Address = {
   postalcode: string;
-  state: string;
+  prefecture: string;
   town: string;
-  street: string;
   restAddress: string;
 };

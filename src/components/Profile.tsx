@@ -15,6 +15,8 @@ import { Profile as IProfile } from "../domain/entity/profile";
 import profileActions from "../store/profile/actions";
 import { Gender } from "../domain/entity/gender";
 import { Address } from "../domain/entity/address";
+import { isPostalcode } from "../domain/services/address";
+import { searchAddressFromPostalcode } from "../store/profile/effects";
 
 const Profile = () => {
   const profile = useSelector((state: RootState) => state.profile);
@@ -26,6 +28,14 @@ const Profile = () => {
 
   const handleAddressChange = (member: Partial<Address>) => {
     dispatch(profileActions.updateAddress(member));
+  };
+
+  const handlePostalcodeChange = (code: string) => {
+    if (!isPostalcode(code)) return;
+
+    dispatch(searchAddressFromPostalcode(code));
+
+    dispatch(profileActions.updateAddress({ postalcode: code }));
   };
 
   return (
@@ -81,13 +91,13 @@ const Profile = () => {
         fullWidth
         label="郵便番号"
         value={profile.address.postalcode}
-        onChange={e => handleAddressChange({ postalcode: e.target.value })}
+        onChange={e => handlePostalcodeChange(e.target.value)}
       />
       <TextField
         fullWidth
         label="都道府県"
-        value={profile.address.state}
-        onChange={e => handleAddressChange({ state: e.target.value })}
+        value={profile.address.prefecture}
+        onChange={e => handleAddressChange({ prefecture: e.target.value })}
       />
       <TextField
         fullWidth

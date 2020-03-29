@@ -6,7 +6,8 @@ const actionCreator = actionCreatorFactory();
 
 const profileActions = {
   updateProfile: actionCreator<Partial<Profile>>("UPDATE_PROFILE"),
-  updateAddress: actionCreator<Partial<Address>>("UPDATE_ADDRESS")
+  updateAddress: actionCreator<Partial<Address>>("UPDATE_ADDRESS"),
+  searchAddress: actionCreator.async<{}, Partial<Address>, {}>("SEARCH_ADDRESS")
 };
 
 export default profileActions;

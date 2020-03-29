@@ -9,9 +9,8 @@ const init: Profile = {
   gender: "",
   address: {
     postalcode: "",
-    state: "",
+    prefecture: "",
     town: "",
-    street: "",
     restAddress: ""
   }
 };
@@ -24,6 +23,10 @@ const profileReducer = reducerWithInitialState(init)
   .case(profileActions.updateAddress, (state, payload) => ({
     ...state,
     address: { ...state.address, ...payload }
+  }))
+  .case(profileActions.searchAddress.done, (state, payload) => ({
+    ...state,
+    address: { ...state.address, ...payload.result }
   }));
 
 export default profileReducer;
