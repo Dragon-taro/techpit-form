@@ -1,8 +1,8 @@
 import React from "react";
 import { TextField, Container, Typography } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../entity/rootState";
-import { Profile as IProfile } from "../entity/profile";
+import { RootState } from "../domain/entity/rootState";
+import { Profile as IProfile } from "../domain/entity/profile";
 import profileActions from "../store/profile/actions";
 
 const Profile = () => {
