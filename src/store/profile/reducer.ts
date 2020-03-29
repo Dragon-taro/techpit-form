@@ -5,16 +5,25 @@ import profileActions from "./actions";
 const init: Profile = {
   name: "",
   description: "",
-  birthday: new Date(),
-  gender: ""
+  birthday: "",
+  gender: "",
+  address: {
+    postalcode: "",
+    state: "",
+    town: "",
+    street: "",
+    restAddress: ""
+  }
 };
 
-const profileReducer = reducerWithInitialState(init).case(
-  profileActions.updateProfile,
-  (state, payload) => ({
+const profileReducer = reducerWithInitialState(init)
+  .case(profileActions.updateProfile, (state, payload) => ({
     ...state,
     ...payload
-  })
-);
+  }))
+  .case(profileActions.updateAddress, (state, payload) => ({
+    ...state,
+    address: { ...state.address, ...payload }
+  }));
 
 export default profileReducer;
