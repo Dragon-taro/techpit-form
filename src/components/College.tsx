@@ -14,11 +14,13 @@ import collegesActions from "../store/colleges/actions";
 import { searchColleges } from "../store/colleges/effects";
 import { College as ICollege } from "../domain/entity/colleges";
 import profileActions from "../store/profile/actions";
+import useStyles from "./styles";
 
 const College = () => {
   const dispatch = useDispatch();
   const colleges = useSelector((state: RootState) => state.colleges);
   const profile = useSelector((state: RootState) => state.profile);
+  const classes = useStyles();
 
   useEffect(() => {
     // 初期ロード = collegesが未ロード && 大学名が入力されてる
@@ -65,12 +67,20 @@ const College = () => {
       {!profile.college.name && (
         <>
           <TextField
+            className={classes.textField}
             fullWidth
             label="大学名を検索"
             value={colleges.search}
             onChange={e => handleChange(e.target.value)}
           />
-          <Button fullWidth onClick={handleSearch} disabled={!colleges.search}>
+          <Button
+            fullWidth
+            variant="outlined"
+            color="primary"
+            className={classes.button}
+            onClick={handleSearch}
+            disabled={!colleges.search}
+          >
             検索
           </Button>
           <Grid spacing={1} container>
@@ -91,12 +101,13 @@ const College = () => {
       {profile.college.name && (
         <>
           <TextField
+            className={classes.textField}
             label="大学名"
             fullWidth
             value={profile.college.name}
             disabled
           />
-          <FormControl fullWidth>
+          <FormControl fullWidth className={classes.textField}>
             <InputLabel>学部</InputLabel>
             <Select
               value={profile.college.faculty}
@@ -116,7 +127,7 @@ const College = () => {
             </Select>
           </FormControl>
           {currentFaculty?.department?.length > 0 && (
-            <FormControl fullWidth>
+            <FormControl fullWidth className={classes.textField}>
               <InputLabel>学科・コース等</InputLabel>
               <Select
                 value={profile.college.department}
@@ -134,6 +145,7 @@ const College = () => {
           )}
           <Button
             fullWidth
+            className={classes.button}
             onClick={handleReset}
             variant="outlined"
             color="secondary"
