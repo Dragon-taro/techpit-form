@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../domain/entity/rootState";
 import {
@@ -20,16 +20,26 @@ const College = () => {
   const colleges = useSelector((state: RootState) => state.colleges);
   const profile = useSelector((state: RootState) => state.profile);
 
+  useEffect(() => {
+    // 初期ロード = collegesが未ロード && 大学名が入力されてる
+    // college.nameを設定するタイミングですでにcollegesを取得しているから初期ロード以外このifを超えない
+    if (colleges.result.length !== 0 || !profile.college.name) return;
+
+    dispatch(searchColleges(profile.college.name));
+  }, [profile.college.name]);
+
+  // 演算するようにしたのは、そうしないとリロードのタイミングでバグるから
   const currentCollege = useMemo(
     () => colleges.result.filter(c => c.name === profile.college.name)[0],
-    [profile.college.name]
+    // collegesを忘れてるとせっかくロードしたのに更新されない
+    [profile.college.name, colleges]
   );
   const currentFaculty = useMemo(
     () =>
       currentCollege?.faculty.filter(
         f => f.name === profile.college.faculty
       )[0],
-    [profile.college.faculty]
+    [profile.college.faculty, colleges]
   );
 
   const handleChange = (name: string) => {
@@ -44,7 +54,11 @@ const College = () => {
     dispatch(profileActions.setCollege(member));
   };
 
-  console.log(profile);
+  const handleReset = () => {
+    handleCollegeChange({ name: "", faculty: "", department: "" });
+    dispatch(collegesActions.setSearchWord(""));
+    dispatch(collegesActions.searchCollege.done({ result: [], params: {} }));
+  };
 
   return (
     <div>
@@ -87,7 +101,11 @@ const College = () => {
             <Select
               value={profile.college.faculty}
               onChange={e =>
-                handleCollegeChange({ faculty: e.target.value as string })
+                handleCollegeChange({
+                  faculty: e.target.value as string,
+                  // 学科はリセットしないとwarnning
+                  department: ""
+                })
               }
             >
               {currentCollege?.faculty.map(f => (
@@ -114,6 +132,14 @@ const College = () => {
               </Select>
             </FormControl>
           )}
+          <Button
+            fullWidth
+            onClick={handleReset}
+            variant="outlined"
+            color="secondary"
+          >
+            学歴の入力情報をリセット
+          </Button>
         </>
       )}
     </div>
