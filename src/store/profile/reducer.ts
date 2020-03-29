@@ -12,17 +12,26 @@ const init: Profile = {
     prefecture: "",
     town: "",
     restAddress: ""
+  },
+  college: {
+    name: "",
+    faculty: "",
+    department: ""
   }
 };
 
 const profileReducer = reducerWithInitialState(init)
-  .case(profileActions.updateProfile, (state, payload) => ({
+  .case(profileActions.setProfile, (state, payload) => ({
     ...state,
     ...payload
   }))
-  .case(profileActions.updateAddress, (state, payload) => ({
+  .case(profileActions.setAddress, (state, payload) => ({
     ...state,
     address: { ...state.address, ...payload }
+  }))
+  .case(profileActions.setCollege, (state, payload) => ({
+    ...state,
+    college: { ...state.college, ...payload }
   }))
   .case(profileActions.searchAddress.done, (state, payload) => ({
     ...state,

@@ -17,17 +17,18 @@ import { Gender } from "../domain/entity/gender";
 import { Address } from "../domain/entity/address";
 import { isPostalcode } from "../domain/services/address";
 import { searchAddressFromPostalcode } from "../store/profile/effects";
+import College from "./College";
 
 const Profile = () => {
   const profile = useSelector((state: RootState) => state.profile);
   const dispatch = useDispatch();
 
   const handleChange = (member: Partial<IProfile>) => {
-    dispatch(profileActions.updateProfile(member));
+    dispatch(profileActions.setProfile(member));
   };
 
   const handleAddressChange = (member: Partial<Address>) => {
-    dispatch(profileActions.updateAddress(member));
+    dispatch(profileActions.setAddress(member));
   };
 
   const handlePostalcodeChange = (code: string) => {
@@ -35,7 +36,7 @@ const Profile = () => {
 
     dispatch(searchAddressFromPostalcode(code));
 
-    dispatch(profileActions.updateAddress({ postalcode: code }));
+    dispatch(profileActions.setAddress({ postalcode: code }));
   };
 
   return (
@@ -111,6 +112,10 @@ const Profile = () => {
         value={profile.address.restAddress}
         onChange={e => handleAddressChange({ restAddress: e.target.value })}
       />
+      <Typography variant="h4" component="h2">
+        学歴
+      </Typography>
+      <College />
     </Container>
   );
 };
