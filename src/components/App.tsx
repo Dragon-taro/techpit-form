@@ -1,18 +1,12 @@
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../entity/rootState";
-import profileActions from "../store/profile/actions";
+import React from "react";
+import IProfile from "./Profile";
 
 function App() {
-  const profile = useSelector((state: RootState) => state.profile);
-  const dispatch = useDispatch();
-  console.log(profile);
-
-  useEffect(() => {
-    dispatch(profileActions.updateProfile({ name: "ほげ" }));
-  }, []);
-
-  return <div className="App">hello</div>;
+  return (
+    <div className="App">
+      <IProfile />
+    </div>
+  );
 }
 
 export default App;
