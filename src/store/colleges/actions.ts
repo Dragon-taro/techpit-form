@@ -1,5 +1,5 @@
 import actionCreatorFactory from "typescript-fsa";
-import { CollegeResult, College, Faculty } from "../../domain/entity/colleges";
+import { CollegeResult } from "../../domain/entity/colleges";
 
 const actionCreator = actionCreatorFactory();
 

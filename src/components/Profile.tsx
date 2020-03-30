@@ -19,6 +19,7 @@ import { isPostalcode } from "../domain/services/address";
 import { searchAddressFromPostalcode } from "../store/profile/effects";
 import College from "./College";
 import useStyles from "./styles";
+import Career from "./Career";
 
 const Profile = () => {
   const profile = useSelector((state: RootState) => state.profile);
@@ -43,7 +44,12 @@ const Profile = () => {
 
   return (
     <Container maxWidth="sm">
-      <Typography variant="h4" component="h2" className={classes.title}>
+      <Typography
+        variant="h4"
+        component="h2"
+        className={classes.title}
+        color="primary"
+      >
         基本情報
       </Typography>
       <TextField
@@ -90,7 +96,12 @@ const Profile = () => {
           shrink: true
         }}
       />
-      <Typography variant="h4" component="h2" className={classes.title}>
+      <Typography
+        variant="h4"
+        component="h2"
+        className={classes.title}
+        color="primary"
+      >
         住所
       </Typography>
       <TextField
@@ -121,10 +132,24 @@ const Profile = () => {
         value={profile.address.restAddress}
         onChange={e => handleAddressChange({ restAddress: e.target.value })}
       />
-      <Typography variant="h4" component="h2" className={classes.title}>
+      <Typography
+        variant="h4"
+        component="h2"
+        className={classes.title}
+        color="primary"
+      >
         学歴
       </Typography>
       <College />
+      <Typography
+        variant="h4"
+        component="h2"
+        className={classes.title}
+        color="primary"
+      >
+        職歴
+      </Typography>
+      <Career />
     </Container>
   );
 };
