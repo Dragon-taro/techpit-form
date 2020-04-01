@@ -7,7 +7,9 @@ import {
   FormLabel,
   RadioGroup,
   FormControlLabel,
-  Radio
+  Radio,
+  Button,
+  FormHelperText
 } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../domain/entity/rootState";
@@ -20,26 +22,52 @@ import { searchAddressFromPostalcode } from "../store/profile/effects";
 import College from "./College";
 import useStyles from "./styles";
 import Career from "./Career";
+import { PROFILE } from "../domain/services/profile";
+import { calculateValidation, isValid } from "../domain/services/validation";
+import validationActions from "../store/validation/actions";
 
 const Profile = () => {
   const profile = useSelector((state: RootState) => state.profile);
   const dispatch = useDispatch();
+  const { message, ...validation } = useSelector(
+    (state: RootState) => state.validation
+  );
   const classes = useStyles();
 
   const handleChange = (member: Partial<IProfile>) => {
     dispatch(profileActions.setProfile(member));
+
+    // バリデーションのエラーを表示し始めてたらメッセージを計算して更新
+    if (!validation.isStartValidation) return;
+    const message = calculateValidation(profile);
+    dispatch(validationActions.setValidation(message));
   };
 
   const handleAddressChange = (member: Partial<Address>) => {
     dispatch(profileActions.setAddress(member));
+
+    if (!validation.isStartValidation) return;
+    const message = calculateValidation(profile);
+    dispatch(validationActions.setValidation(message));
   };
 
   const handlePostalcodeChange = (code: string) => {
     if (!isPostalcode(code)) return;
 
     dispatch(searchAddressFromPostalcode(code));
-
     dispatch(profileActions.setAddress({ postalcode: code }));
+
+    if (!validation.isStartValidation) return;
+    const message = calculateValidation(profile);
+    dispatch(validationActions.setValidation(message));
+  };
+
+  const handleSave = () => {
+    const message = calculateValidation(profile);
+    if (isValid(message)) return;
+
+    dispatch(validationActions.setValidation(message));
+    dispatch(validationActions.setIsStartvalidation(true));
   };
 
   return (
@@ -54,7 +82,10 @@ const Profile = () => {
       </Typography>
       <TextField
         fullWidth
-        label="名前"
+        label={PROFILE.NAME}
+        required
+        error={!!message.name}
+        helperText={message.name}
         className={classes.textField}
         value={profile.name}
         onChange={e => handleChange({ name: e.target.value })}
@@ -62,14 +93,20 @@ const Profile = () => {
       <TextField
         fullWidth
         multiline
+        error={!!message.description}
+        helperText={message.description}
         className={classes.textField}
         rows={5}
-        label="自己紹介"
+        label={PROFILE.DESCRIPTION}
         value={profile.description}
         onChange={e => handleChange({ description: e.target.value })}
       />
-      <FormControl className={classes.textField}>
-        <FormLabel>性別</FormLabel>
+      <FormControl
+        error={!!message.gender}
+        required
+        className={classes.textField}
+      >
+        <FormLabel>{PROFILE.GENDER}</FormLabel>
         <RadioGroup
           onChange={e => handleChange({ gender: e.target.value as Gender })}
         >
@@ -84,11 +121,15 @@ const Profile = () => {
             control={<Radio color="primary" />}
           />
         </RadioGroup>
+        <FormHelperText>{message.gender}</FormHelperText>
       </FormControl>
       <TextField
         fullWidth
+        required
+        error={!!message.birthday}
+        helperText={message.birthday}
         className={classes.textField}
-        label="生年月日"
+        label={PROFILE.BIRTHDAY}
         type="date"
         value={profile.birthday}
         onChange={e => handleChange({ birthday: e.target.value })}
@@ -106,29 +147,40 @@ const Profile = () => {
       </Typography>
       <TextField
         fullWidth
+        required
+        error={!!message.address.postalcode}
+        helperText={message.address.postalcode}
         className={classes.textField}
-        label="郵便番号"
+        label={PROFILE.ADDRESS.POSTALCODE}
         value={profile.address.postalcode}
         onChange={e => handlePostalcodeChange(e.target.value)}
       />
       <TextField
         fullWidth
+        required
+        error={!!message.address.prefecture}
+        helperText={message.address.prefecture}
         className={classes.textField}
-        label="都道府県"
+        label={PROFILE.ADDRESS.PREFECTURE}
         value={profile.address.prefecture}
         onChange={e => handleAddressChange({ prefecture: e.target.value })}
       />
       <TextField
         fullWidth
+        required
+        error={!!message.address.town}
+        helperText={message.address.town}
         className={classes.textField}
-        label="市区町村"
+        label={PROFILE.ADDRESS.TOWN}
         value={profile.address.town}
         onChange={e => handleAddressChange({ town: e.target.value })}
       />
       <TextField
         fullWidth
         className={classes.textField}
-        label="番地以下"
+        error={!!message.address.restAddress}
+        helperText={message.address.restAddress}
+        label={PROFILE.ADDRESS.RESTADDRES}
         value={profile.address.restAddress}
         onChange={e => handleAddressChange({ restAddress: e.target.value })}
       />
@@ -150,6 +202,15 @@ const Profile = () => {
         職歴
       </Typography>
       <Career />
+      <Button
+        fullWidth
+        className={classes.button}
+        onClick={handleSave}
+        variant="outlined"
+        color="primary"
+      >
+        保存
+      </Button>
     </Container>
   );
 };

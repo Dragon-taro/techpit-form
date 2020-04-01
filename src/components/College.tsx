@@ -8,18 +8,26 @@ import {
   FormControl,
   InputLabel,
   MenuItem,
-  Select
+  Select,
+  FormHelperText
 } from "@material-ui/core";
 import collegesActions from "../store/colleges/actions";
 import { searchColleges } from "../store/colleges/effects";
 import { College as ICollege } from "../domain/entity/colleges";
 import profileActions from "../store/profile/actions";
 import useStyles from "./styles";
+import { PROFILE } from "../domain/services/profile";
+import { calculateValidation } from "../domain/services/validation";
+import validationActions from "../store/validation/actions";
 
 const College = () => {
   const dispatch = useDispatch();
   const colleges = useSelector((state: RootState) => state.colleges);
   const profile = useSelector((state: RootState) => state.profile);
+  const {
+    message: { college: message },
+    ...validation
+  } = useSelector((state: RootState) => state.validation);
   const classes = useStyles();
 
   useEffect(() => {
@@ -41,7 +49,7 @@ const College = () => {
       currentCollege?.faculty.filter(
         f => f.name === profile.college.faculty
       )[0],
-    [profile.college.faculty, colleges]
+    [currentCollege, profile.college.faculty, colleges]
   );
 
   const handleChange = (name: string) => {
@@ -54,6 +62,10 @@ const College = () => {
 
   const handleCollegeChange = (member: Partial<ICollege>) => {
     dispatch(profileActions.setCollege(member));
+
+    if (!validation.isStartValidation) return;
+    const message = calculateValidation(profile);
+    dispatch(validationActions.setValidation(message));
   };
 
   const handleReset = () => {
@@ -102,13 +114,18 @@ const College = () => {
         <>
           <TextField
             className={classes.textField}
-            label="大学名"
+            label={PROFILE.COLLEGE.NAME}
             fullWidth
             value={profile.college.name}
             disabled
           />
-          <FormControl fullWidth className={classes.textField}>
-            <InputLabel>学部</InputLabel>
+          <FormControl
+            error={!!message.faculty}
+            required
+            fullWidth
+            className={classes.textField}
+          >
+            <InputLabel>{PROFILE.COLLEGE.FACULTY}</InputLabel>
             <Select
               value={profile.college.faculty}
               onChange={e =>
@@ -125,10 +142,11 @@ const College = () => {
                 </MenuItem>
               ))}
             </Select>
+            <FormHelperText>{message.faculty}</FormHelperText>
           </FormControl>
           {currentFaculty?.department?.length > 0 && (
-            <FormControl fullWidth className={classes.textField}>
-              <InputLabel>学科・コース等</InputLabel>
+            <FormControl required fullWidth className={classes.textField}>
+              <InputLabel>{PROFILE.COLLEGE.DEPARTMENT}</InputLabel>
               <Select
                 value={profile.college.department}
                 onChange={e =>

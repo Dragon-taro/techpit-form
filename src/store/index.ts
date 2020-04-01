@@ -3,11 +3,13 @@ import profileReducer from "./profile/reducer";
 import { RootState } from "../domain/entity/rootState";
 import thunk from "redux-thunk";
 import collegesReducer from "./colleges/reducer";
+import validationReducer from "./validation/reducer";
 
 const store = createStore(
   combineReducers<RootState>({
     profile: profileReducer,
-    colleges: collegesReducer
+    colleges: collegesReducer,
+    validation: validationReducer
   }),
   applyMiddleware(thunk)
 );
