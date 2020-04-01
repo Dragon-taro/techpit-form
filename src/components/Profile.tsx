@@ -25,6 +25,7 @@ import Career from "./Career";
 import { PROFILE } from "../domain/services/profile";
 import { calculateValidation, isValid } from "../domain/services/validation";
 import validationActions from "../store/validation/actions";
+import alertActions from "../store/alert/actions";
 
 const Profile = () => {
   const profile = useSelector((state: RootState) => state.profile);
@@ -64,10 +65,27 @@ const Profile = () => {
 
   const handleSave = () => {
     const message = calculateValidation(profile);
-    if (isValid(message)) return;
+    if (isValid(message)) {
+      dispatch(
+        alertActions.openAlert({
+          severity: "success",
+          message: "保存に成功しました！"
+        })
+      );
+
+      // dispatch(サーバーに保存するための非同期アクション)
+
+      return;
+    }
 
     dispatch(validationActions.setValidation(message));
     dispatch(validationActions.setIsStartvalidation(true));
+    dispatch(
+      alertActions.openAlert({
+        severity: "error",
+        message: "入力に誤りがあります。"
+      })
+    );
   };
 
   return (
