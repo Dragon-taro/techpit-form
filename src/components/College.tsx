@@ -64,7 +64,11 @@ const College = () => {
     dispatch(profileActions.setCollege(member));
 
     if (!validation.isStartValidation) return;
-    const message = calculateValidation(profile);
+    const newProfile = {
+      ...profile,
+      college: { ...profile.college, ...member }
+    };
+    const message = calculateValidation(newProfile);
     dispatch(validationActions.setValidation(message));
   };
 
@@ -121,7 +125,6 @@ const College = () => {
           />
           <FormControl
             error={!!message.faculty}
-            required
             fullWidth
             className={classes.textField}
           >

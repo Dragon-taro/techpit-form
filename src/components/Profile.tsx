@@ -38,18 +38,13 @@ const Profile = () => {
   const handleChange = (member: Partial<IProfile>) => {
     dispatch(profileActions.setProfile(member));
 
-    // バリデーションのエラーを表示し始めてたらメッセージを計算して更新
-    if (!validation.isStartValidation) return;
-    const message = calculateValidation(profile);
-    dispatch(validationActions.setValidation(message));
+    recalculateValidation(member);
   };
 
   const handleAddressChange = (member: Partial<Address>) => {
     dispatch(profileActions.setAddress(member));
 
-    if (!validation.isStartValidation) return;
-    const message = calculateValidation(profile);
-    dispatch(validationActions.setValidation(message));
+    recalculateValidation({ address: { ...profile.address, ...member } });
   };
 
   const handlePostalcodeChange = (code: string) => {
@@ -58,8 +53,24 @@ const Profile = () => {
     dispatch(searchAddressFromPostalcode(code));
     dispatch(profileActions.setAddress({ postalcode: code }));
 
+    recalculateValidation({
+      address: { ...profile.address, postalcode: code }
+    });
+  };
+
+  const recalculateValidation = (member: Partial<IProfile>) => {
+    // バリデーションのエラーを表示し始めてたらメッセージを計算して更新
     if (!validation.isStartValidation) return;
-    const message = calculateValidation(profile);
+
+    // profileだと一つ前のstateになってしまう
+    // とはいえこの実装はまずい
+    // → 新しいstate生成をserviceにまとめる or side effectsとして扱う
+    // これはadvance的な扱いにして紹介ぐらいにするのが楽そうう
+    const newProfile = {
+      ...profile,
+      ...member
+    };
+    const message = calculateValidation(newProfile);
     dispatch(validationActions.setValidation(message));
   };
 

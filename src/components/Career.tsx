@@ -29,7 +29,14 @@ const Career = () => {
     dispatch(profileActions.setCareer({ career: member, index: i }));
 
     if (!validation.isStartValidation) return;
-    const message = calculateValidation(profile);
+
+    const newProfile = {
+      ...profile,
+      career: profile.career.map((c, _i) =>
+        _i === i ? { ...c, ...member } : c
+      )
+    };
+    const message = calculateValidation(newProfile);
     dispatch(validationActions.setValidation(message));
   };
 
