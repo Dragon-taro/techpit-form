@@ -19,7 +19,7 @@ const init: Profile = {
     faculty: "",
     department: ""
   },
-  career: []
+  careers: []
 };
 
 const initCareer: Career = {
@@ -44,17 +44,17 @@ const profileReducer = reducerWithInitialState(init)
   }))
   .case(profileActions.addCareer, state => ({
     ...state,
-    career: [...state.career, initCareer]
+    careers: [...state.careers, initCareer]
   }))
   .case(profileActions.setCareer, (state, payload) => ({
     ...state,
-    career: state.career.map((c, i) =>
+    careers: state.careers.map((c, i) =>
       i === payload.index ? { ...c, ...payload.career } : c
     )
   }))
   .case(profileActions.deleteCareer, (state, payload) => ({
     ...state,
-    career: state.career.filter((_, i) => i !== payload)
+    careers: state.careers.filter((_, i) => i !== payload)
   }))
   .case(profileActions.searchAddress.done, (state, payload) => ({
     ...state,

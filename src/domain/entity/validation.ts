@@ -12,7 +12,7 @@ export type Validation = {
   college: {
     faculty: string;
   };
-  career: {
+  careers: {
     company: string;
     position: string;
     startAt: string;

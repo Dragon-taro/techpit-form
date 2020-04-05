@@ -18,7 +18,7 @@ const init: ValidationState = {
     college: {
       faculty: ""
     },
-    career: []
+    careers: []
   }
 };
 

@@ -1,6 +1,5 @@
 import React, { useMemo, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../domain/entity/rootState";
 import {
   TextField,
   Button,
@@ -11,14 +10,18 @@ import {
   Select,
   FormHelperText
 } from "@material-ui/core";
-import collegesActions from "../store/colleges/actions";
-import { searchColleges } from "../store/colleges/effects";
+
+import { RootState } from "../domain/entity/rootState";
 import { College as ICollege } from "../domain/entity/colleges";
-import profileActions from "../store/profile/actions";
-import useStyles from "./styles";
 import { PROFILE } from "../domain/services/profile";
 import { calculateValidation } from "../domain/services/validation";
+
+import collegesActions from "../store/colleges/actions";
+import { searchColleges } from "../store/colleges/effects";
+import profileActions from "../store/profile/actions";
 import validationActions from "../store/validation/actions";
+
+import useStyles from "./styles";
 
 const College = () => {
   const dispatch = useDispatch();

@@ -10,5 +10,5 @@ export type Profile = {
   gender: Gender;
   address: Address;
   college: College;
-  career: Career[];
+  careers: Career[];
 };

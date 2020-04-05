@@ -1,13 +1,13 @@
 import React from "react";
-import IProfile from "./Profile";
+import Profile from "./Profile";
 import Alert from "./Alert";
 
 function App() {
   return (
-    <div className="App">
-      <IProfile />
+    <>
+      <Profile />
       <Alert />
-    </div>
+    </>
   );
 }
 

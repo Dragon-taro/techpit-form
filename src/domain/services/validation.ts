@@ -28,7 +28,7 @@ export const calculateValidation = (profile: Profile) => {
     college: {
       faculty: facultyValidation(profile.college)
     },
-    career: careerValidation(profile.career)
+    careers: careerValidation(profile.careers)
   };
 
   return message;
@@ -70,8 +70,8 @@ const facultyValidation = (college: College) =>
 
 const careerValidation = (careers: Career[]) =>
   careers.map(c => ({
-    company: emptyValidation(c.company, PROFILE.CAREER.COMPANY),
-    position: emptyValidation(c.position, PROFILE.CAREER.POSITION),
-    startAt: emptyValidation(c.startAt, PROFILE.CAREER.START_AT),
-    endAt: emptyValidation(c.endAt, PROFILE.CAREER.END_AT)
+    company: emptyValidation(c.company, PROFILE.CAREERS.COMPANY),
+    position: emptyValidation(c.position, PROFILE.CAREERS.POSITION),
+    startAt: emptyValidation(c.startAt, PROFILE.CAREERS.START_AT),
+    endAt: emptyValidation(c.endAt, PROFILE.CAREERS.END_AT)
   }));

@@ -14,7 +14,7 @@ export const PROFILE = {
     FACULTY: "学部",
     DEPARTMENT: "学科"
   },
-  CAREER: {
+  CAREERS: {
     COMPANY: "会社名",
     POSITION: "役職",
     START_AT: "開始月",
