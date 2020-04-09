@@ -1,14 +1,51 @@
-# memo
+# Create form with TypeScript and hooks API
 
-## 環境構築
+## front
+
+こちらが教材で開発していくメインのディレクトリです。
+
+### Set up
 
 ```bash
-$ npx create-react-app form-app --typescript
-$ yarn add redux react-redux typescript-fsa typescript-fsa-reducers
-$ yarn add -D @types/react-redux
+$ cd front
+$ yarn install
 ```
 
-## profile
+### Start
 
-profile の redux の部分を作成
-fsa がいい感じ
+```bash
+$ yarn start
+```
+
+## server
+
+[住所検索 API](https://postcode-jp.com/) を叩くときに CORS を回避するために建てたプロキシサーバーです。
+
+### Set up
+
+```bash
+$ cd server
+$ yarn install
+```
+
+次に、[サイト](https://postcode-jp.com/)にアクセスして会員登録して API key を取得してください。
+
+続いて API key をサーバーに登録します。
+
+```bash
+$ yarn env
+```
+
+上記のコマンドを実行すると、`server/.env`というファイルが生成されます。
+
+```
+API_KEY=
+```
+
+という内容になっているので、`=`の後ろにご自身の API key を記述してください。
+
+### Start
+
+```bash
+$ yarn start
+```
