@@ -7,7 +7,7 @@ const useStyles = makeStyles({
   subTitle: {
     margin: "8px 0 0"
   },
-  textField: {
+  formField: {
     margin: "8px 0"
   },
   button: {
