@@ -35,23 +35,6 @@ const Basic = () => {
     recalculateValidation(member);
   };
 
-  //   const handleAddressChange = (member: Partial<Address>) => {
-  //     dispatch(profileActions.setAddress(member));
-
-  //     recalculateValidation({ address: { ...profile.address, ...member } });
-  //   };
-
-  //   const handlePostalcodeChange = (code: string) => {
-  //     if (!isPostalcode(code)) return;
-
-  //     dispatch(searchAddressFromPostalcode(code));
-  //     dispatch(profileActions.setAddress({ postalcode: code }));
-
-  //     recalculateValidation({
-  //       address: { ...profile.address, postalcode: code }
-  //     });
-  //   };
-
   const recalculateValidation = (member: Partial<Profile>) => {
     // バリデーションのエラーを表示し始めてたらメッセージを計算して更新
     if (!validation.isStartValidation) return;
