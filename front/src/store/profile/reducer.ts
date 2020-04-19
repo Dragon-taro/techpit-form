@@ -6,15 +6,23 @@ const init: Profile = {
   name: "",
   description: "",
   birthday: "",
-  gender: ""
+  gender: "",
+  address: {
+    postalcode: "",
+    prefecture: "",
+    city: "",
+    restAddress: ""
+  }
 };
 
-const profileReducer = reducerWithInitialState(init).case(
-  profileActions.setProfile,
-  (state, payload) => ({
+const profileReducer = reducerWithInitialState(init)
+  .case(profileActions.setProfile, (state, payload) => ({
     ...state,
     ...payload
-  })
-);
+  }))
+  .case(profileActions.setAddress, (state, payload) => ({
+    ...state,
+    address: { ...state.address, ...payload }
+  }));
 
 export default profileReducer;
