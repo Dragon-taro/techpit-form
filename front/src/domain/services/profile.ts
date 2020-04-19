@@ -6,7 +6,7 @@ export const PROFILE = {
   ADDRESS: {
     POSTALCODE: "郵便番号",
     PREFECTURE: "都道府県",
-    TOWN: "市区町村",
+    CITY: "市区町村",
     RESTADDRES: "番地以下"
   },
   COLLEGE: {
