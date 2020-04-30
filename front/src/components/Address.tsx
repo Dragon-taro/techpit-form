@@ -10,6 +10,7 @@ import profileActions from "../store/profile/actions";
 import { isPostalcode } from "../domain/services/address";
 
 import useStyles from "./styles";
+import { searchAddressFromPostalcode } from "../store/profile/effects";
 
 const Address = () => {
   const dispatch = useDispatch();
@@ -24,6 +25,7 @@ const Address = () => {
     if (!isPostalcode(code)) return;
 
     dispatch(profileActions.setAddress({ postalcode: code }));
+    dispatch(searchAddressFromPostalcode(code));
   };
 
   return (
