@@ -6,4 +6,15 @@ export type College = {
 
 export type Colleges = {
   search: string;
+  result: CollegeResult[];
+};
+
+export type CollegeResult = {
+  name: string;
+  faculty: Faculty[];
+};
+
+export type Faculty = {
+  name: string;
+  department: string[];
 };
