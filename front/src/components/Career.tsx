@@ -1,33 +1,35 @@
 import React, { Fragment } from "react";
 import {
   TextField,
+  Button,
   Grid,
   InputLabel,
-  Typography,
-  Button
+  Typography
 } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
 
 import { RootState } from "../domain/entity/rootState";
 import { Career as ICareer } from "../domain/entity/career";
+import { exitEmptyCareers } from "../domain/services/career";
 import profileActions from "../store/profile/actions";
 
 import useStyles from "./styles";
-import { PROFILE } from "../domain/services/profile";
-import { exitEmptyCareers } from "../domain/services/career";
 
 const Career = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const careers = useSelector((state: RootState) => state.profile.careers);
-
-  const isAbleToAddCarrer = exitEmptyCareers(careers);
+  const validation = useSelector((state: RootState) => state.validation);
 
   const handleChange = (member: Partial<ICareer>, i: number) => {
     dispatch(profileActions.setCareer({ career: member, index: i }));
   };
 
+  const isAbleToAddCarrer = exitEmptyCareers(careers);
+
   const handleAddCareer = () => {
+    if (isAbleToAddCarrer) return;
+
     dispatch(profileActions.addCareer({}));
   };
 
@@ -45,19 +47,23 @@ const Career = () => {
           <TextField
             className={classes.formField}
             fullWidth
-            label={PROFILE.CAREERS.COMPANY}
+            error={!!validation.message.careers[i]?.company}
+            helperText={validation.message.careers[i]?.company}
+            label="会社名"
             value={c.company}
             onChange={e => handleChange({ company: e.target.value }, i)}
           />
           <TextField
             className={classes.formField}
             fullWidth
-            label={PROFILE.CAREERS.POSITION}
+            error={!!validation.message.careers[i]?.position}
+            helperText={validation.message.careers[i]?.position}
+            label="役職"
             value={c.position}
             onChange={e => handleChange({ position: e.target.value }, i)}
           />
           <div className={classes.careerSpan}>
-            <InputLabel shrink>{PROFILE.CAREERS.SPAN}</InputLabel>
+            <InputLabel shrink>期間</InputLabel>
             <Grid
               container
               spacing={1}
@@ -68,6 +74,8 @@ const Career = () => {
                 <TextField
                   fullWidth
                   type="month"
+                  error={!!validation.message.careers[i]?.startAt}
+                  helperText={validation.message.careers[i]?.startAt}
                   InputLabelProps={{
                     shrink: true
                   }}
@@ -82,6 +90,8 @@ const Career = () => {
                 <TextField
                   fullWidth
                   type="month"
+                  error={!!validation.message.careers[i]?.endAt}
+                  helperText={validation.message.careers[i]?.endAt}
                   InputLabelProps={{
                     shrink: true
                   }}
