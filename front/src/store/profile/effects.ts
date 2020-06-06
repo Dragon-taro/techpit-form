@@ -9,16 +9,15 @@ import {
 export const searchAddressFromPostalcode = (code: string) => async (
   dispach: Dispatch
 ) => {
+  // 以下の行を追加する
   if (!isCompletePostalcode(code)) return;
-  dispach(profileActions.searchAddress.started({}));
 
   const result = await fetch(
-    `https://apis.postcode-jp.com/api/v3/postcodes?apikey=rl2QGMCip3P03Vs3flvnBIvaODeoSfj1MRzfvT9&postcode=${sanitizePostalcode(
+    // sanitizePostalcode()の処理を追加する
+    `https://apis.postcode-jp.com/api/v3/postcodes?apikey=KGuEMR1mqmuZt5qZjGUtoHtA7XjBGdWYIzv5TBF&postcode=${sanitizePostalcode(
       code
     )}`
   ).then(res => res.json());
-
-  if (!result.data[0]) return;
 
   const address: Partial<Address> = {
     prefecture: result.data[0].pref,

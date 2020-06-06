@@ -17,7 +17,6 @@ export const PROFILE = {
   CAREERS: {
     COMPANY: "会社名",
     POSITION: "役職",
-    START_AT: "開始月",
-    END_AT: "終了月"
+    SPAN: "期間"
   }
 };
