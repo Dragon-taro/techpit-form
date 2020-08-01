@@ -11,15 +11,15 @@ import {
   FormHelperText
 } from "@material-ui/core";
 
-import { RootState } from "../domain/entity/rootState";
-import collegesActions from "../store/colleges/actions";
-import { searchColleges } from "../store/colleges/effects";
-import { College as ICollege } from "../domain/entity/college";
-import profileActions from "../store/profile/actions";
-import { PROFILE } from "../domain/services/profile";
-import { Profile } from "../domain/entity/profile";
-import { calculateValidation } from "../domain/services/validation";
-import validationActions from "../store/validation/actions";
+import { RootState } from "../../domain/entity/rootState";
+import collegesActions from "../../store/colleges/actions";
+import { searchColleges } from "../../store/colleges/effects";
+import { College as ICollege } from "../../domain/entity/college";
+import profileActions from "../../store/profile/actions";
+import { PROFILE } from "../../domain/services/profile";
+import { Profile } from "../../domain/entity/profile";
+import { calculateValidation } from "../../domain/services/validation";
+import validationActions from "../../store/validation/actions";
 
 import useStyles from "./styles";
 

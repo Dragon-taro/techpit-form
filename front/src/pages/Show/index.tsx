@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "../domain/entity/rootState";
+import { RootState } from "../../domain/entity/rootState";
 import { Button } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 

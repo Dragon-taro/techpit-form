@@ -10,13 +10,13 @@ import {
   FormHelperText
 } from "@material-ui/core";
 
-import { RootState } from "../domain/entity/rootState";
-import { Profile } from "../domain/entity/profile";
-import { Gender } from "../domain/entity/gender";
-import { PROFILE } from "../domain/services/profile";
-import profileActions from "../store/profile/actions";
-import { calculateValidation } from "../domain/services/validation";
-import validationActions from "../store/validation/actions";
+import { RootState } from "../../domain/entity/rootState";
+import { Profile } from "../../domain/entity/profile";
+import { Gender } from "../../domain/entity/gender";
+import { PROFILE } from "../../domain/services/profile";
+import profileActions from "../../store/profile/actions";
+import { calculateValidation } from "../../domain/services/validation";
+import validationActions from "../../store/validation/actions";
 
 import useStyles from "./styles";
 

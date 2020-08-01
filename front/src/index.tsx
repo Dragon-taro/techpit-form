@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import firebase from "firebase";
 import { Provider } from "react-redux";
-import App from "./components/App";
+import Router from "./Router";
 import store from "./store";
 
 const firebaseConfig = {
@@ -19,7 +19,7 @@ firebase.initializeApp(firebaseConfig);
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <Router />
   </Provider>,
   document.getElementById("root")
 );

@@ -2,10 +2,10 @@ import React from "react";
 import { Container, Typography, Button } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
 
-import { RootState } from "../domain/entity/rootState";
-import { calculateValidation, isValid } from "../domain/services/validation";
-import validationActions from "../store/validation/actions";
-import alertActions from "../store/alert/actions";
+import { RootState } from "../../domain/entity/rootState";
+import { calculateValidation, isValid } from "../../domain/services/validation";
+import validationActions from "../../store/validation/actions";
+import alertActions from "../../store/alert/actions";
 import College from "./College";
 import Career from "./Career";
 import Basic from "./Basic";
@@ -14,7 +14,7 @@ import Address from "./Address";
 import useStyles from "./styles";
 import { useHistory } from "react-router-dom";
 
-const Profile = () => {
+const Edit = () => {
   const dispatch = useDispatch();
   const profile = useSelector((state: RootState) => state.profile);
   const classes = useStyles();
@@ -95,4 +95,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default Edit;
