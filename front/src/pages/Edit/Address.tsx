@@ -2,15 +2,15 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { TextField } from "@material-ui/core";
 
-import { RootState } from "../domain/entity/rootState";
-import { Address as IAddress } from "../domain/entity/address";
-import { isPostalcode } from "../domain/services/address";
-import { PROFILE } from "../domain/services/profile";
-import profileActions from "../store/profile/actions";
-import { searchAddressFromPostalcode } from "../store/profile/effects";
-import { Profile } from "../domain/entity/profile";
-import { calculateValidation } from "../domain/services/validation";
-import validationActions from "../store/validation/actions";
+import { RootState } from "../../domain/entity/rootState";
+import { Address as IAddress } from "../../domain/entity/address";
+import { isPostalcode } from "../../domain/services/address";
+import { PROFILE } from "../../domain/services/profile";
+import profileActions from "../../store/profile/actions";
+import { searchAddressFromPostalcode } from "../../store/profile/effects";
+import { Profile } from "../../domain/entity/profile";
+import { calculateValidation } from "../../domain/services/validation";
+import validationActions from "../../store/validation/actions";
 
 import useStyles from "./styles";
 

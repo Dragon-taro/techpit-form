@@ -8,12 +8,12 @@ import {
 } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
 
-import { RootState } from "../domain/entity/rootState";
-import { Career as ICareer } from "../domain/entity/career";
-import { exitEmptyCareers } from "../domain/services/career";
-import profileActions from "../store/profile/actions";
-import { calculateValidation } from "../domain/services/validation";
-import validationActions from "../store/validation/actions";
+import { RootState } from "../../domain/entity/rootState";
+import { Career as ICareer } from "../../domain/entity/career";
+import { exitEmptyCareers } from "../../domain/services/career";
+import profileActions from "../../store/profile/actions";
+import { calculateValidation } from "../../domain/services/validation";
+import validationActions from "../../store/validation/actions";
 
 import useStyles from "./styles";
 
