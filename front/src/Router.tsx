@@ -4,19 +4,20 @@ import Alert from "./commons/Alert";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Show from "./pages/Show";
 import Login from "./pages/Login";
+import AuthRoute from "./commons/AuthRoute";
 
 function Router() {
   return (
     <>
       <BrowserRouter>
         <Switch>
-          <Route path="/edit">
+          <AuthRoute path="/edit">
             <Edit />
-          </Route>
-          <Route path="/show">
+          </AuthRoute>
+          <AuthRoute path="/show">
             <Show />
-          </Route>
-          <Route paht="">
+          </AuthRoute>
+          <Route path="">
             <Login />
           </Route>
         </Switch>
