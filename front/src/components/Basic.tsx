@@ -15,7 +15,7 @@ import { RootState } from "../domain/entity/rootState";
 
 import { Profile } from "../domain/entity/profile";
 import { PROFILE } from "../domain/services/profile";
-import profileActions from "../store/profile/actions";
+import { profileActions } from "../store/profile/actions";
 import { Gender } from "../domain/entity/gender";
 
 export const Basic = () => {

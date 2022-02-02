@@ -1,5 +1,4 @@
 import { Gender } from "./gender";
-
 import { Address } from "./address";
 
 export type Profile = {
