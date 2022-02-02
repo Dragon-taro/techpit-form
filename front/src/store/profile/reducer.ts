@@ -7,12 +7,20 @@ const init: Profile = {
   description: "",
   birthday: "",
   gender: "",
+  address: {
+    postalcode: "",
+    prefecture: "",
+    city: "",
+    restAddress: "",
+  },
 };
 
-export const profileReducer = reducerWithInitialState(init).case(
-  profileActions.setProfile,
-  (state, payload) => ({
+export const profileReducer = reducerWithInitialState(init)
+  .case(profileActions.setProfile, (state, payload) => ({
     ...state,
     ...payload,
-  })
-);
+  }))
+  .case(profileActions.setAddress, (state, payload) => ({
+    ...state,
+    address: { ...state.address, payload },
+  }));
