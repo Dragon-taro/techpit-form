@@ -64,6 +64,15 @@ export const Basic = () => {
           />
         </RadioGroup>
       </FormControl>
+      <TextField
+        fullWidth
+        className={classes.formField}
+        label={PROFILE.BIRTHDAY}
+        type="date"
+        value={profile.birthday}
+        onChange={(e) => handleChange({ birthday: e.target.value })}
+        InputLabelProps={{ shrink: true }}
+      />
     </>
   );
 };
