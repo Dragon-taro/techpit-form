@@ -15,6 +15,11 @@ const init: Profile = {
     city: "",
     restAddress: "",
   },
+  college: {
+    name: "",
+    faculty: "",
+    department: "",
+  },
   careers: [],
 };
 
@@ -37,6 +42,10 @@ export const profileReducer = reducerWithInitialState(init)
   .case(profileActions.searchAddress.done, (state, payload) => ({
     ...state,
     address: { ...state.address, ...payload.result },
+  }))
+  .case(profileActions.setCollege, (state, payload) => ({
+    ...state,
+    college: { ...state.college, ...payload },
   }))
   .case(profileActions.setCareer, (state, payload) => ({
     ...state,

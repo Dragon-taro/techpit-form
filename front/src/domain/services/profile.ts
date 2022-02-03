@@ -9,6 +9,11 @@ export const PROFILE = {
     CITY: "市区町村",
     RESTADDRES: "番地以下",
   },
+  COLLEGE: {
+    NAME: "大学名",
+    FACULTY: "学部",
+    DEPARTMENT: "学科",
+  },
   CAREERS: {
     COMPANY: "会社名",
     POSITION: "役職",

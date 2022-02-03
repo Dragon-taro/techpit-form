@@ -2,6 +2,7 @@ import actionCreatorFactory from "typescript-fsa";
 import { Profile } from "../../domain/entity/profile";
 import { Address } from "../../domain/entity/address";
 import { Career } from "../../domain/entity/career";
+import { College } from "../../domain/entity/college";
 
 const actionCreator = actionCreatorFactory();
 
@@ -11,6 +12,7 @@ export const profileActions = {
   searchAddress: actionCreator.async<{}, Partial<Address>, {}>(
     "SEARCH_ADDRESS"
   ),
+  setCollege: actionCreator<Partial<College>>("SET_COLLEGE"),
   setCareer:
     actionCreator<{ career: Partial<Career>; index: number }>("SET_CAREER"),
   deleteCareer: actionCreator<number>("DELETE_CAREER"),
