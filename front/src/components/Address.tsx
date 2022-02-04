@@ -11,6 +11,10 @@ import { isPostalcode } from "../domain/services/address";
 
 import { searchAddressFromPostalcode } from "../store/profile/effects";
 
+import { Profile } from "../domain/entity/profile";
+import { calculateValidation } from "../domain/services/validation";
+import { validationActions } from "../store/validation/actions";
+
 import useStyes from "./styles";
 
 export const Address = () => {
@@ -22,12 +26,27 @@ export const Address = () => {
 
   const handleAddressChange = (member: Partial<IAddress>) => {
     dispatch(profileActions.setAddress(member));
+    recalculateValidation({ address: { ...profile.address, ...member } });
   };
 
   const handlePostalcodeChange = (code: string) => {
     if (!isPostalcode(code)) return;
     dispatch(profileActions.setAddress({ postalcode: code }));
     dispatch(searchAddressFromPostalcode(code));
+    recalculateValidation({
+      address: { ...profile.address, postalcode: code },
+    });
+  };
+
+  const recalculateValidation = (member: Partial<Profile>) => {
+    if (!validation.isStartValidation) return;
+
+    const newProfile = {
+      ...profile,
+      ...member,
+    };
+    const message = calculateValidation(newProfile);
+    dispatch(validationActions.setValidation(message));
   };
 
   return (
