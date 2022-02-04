@@ -3,8 +3,10 @@ import { Container, Typography, Button } from "@material-ui/core";
 
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../domain/entity/rootState";
-import { calculateValidation } from "../domain/services/validation";
+
+import { calculateValidation, isValid } from "../domain/services/validation";
 import { validationActions } from "../store/validation/actions";
+import { alertActions } from "../store/alert/actions";
 
 import { Basic } from "./Basic";
 import { Address } from "./Address";
@@ -24,6 +26,23 @@ export const Profile = () => {
 
     dispatch(validationActions.setValidation(message));
     dispatch(validationActions.setIsStartvalidation(true));
+
+    if (isValid(message)) {
+      dispatch(
+        alertActions.openAlert({
+          severity: "success",
+          message: "保存に成功しました！",
+        })
+      );
+      return;
+    }
+
+    dispatch(
+      alertActions.openAlert({
+        severity: "error",
+        message: "入力に誤りがあります。",
+      })
+    );
   };
 
   return (
