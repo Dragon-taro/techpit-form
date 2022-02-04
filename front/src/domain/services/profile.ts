@@ -18,5 +18,7 @@ export const PROFILE = {
     COMPANY: "会社名",
     POSITION: "役職",
     SPAN: "期間",
+    START_AT: "開始日",
+    END_AT: "終了日",
   },
 };

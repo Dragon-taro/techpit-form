@@ -12,7 +12,6 @@ import { RootState } from "../domain/entity/rootState";
 import { Career as ICareer } from "../domain/entity/career";
 import { profileActions } from "../store/profile/actions";
 import { exitEmptyCareers } from "../domain/services/career";
-import { PROFILE } from "../domain/services/profile";
 
 import useStyles from "./styles";
 
@@ -21,6 +20,7 @@ export const Career = () => {
 
   const dispatch = useDispatch();
   const careers = useSelector((state: RootState) => state.profile.careers);
+  const validation = useSelector((state: RootState) => state.validation);
 
   const isAbleToAddCarrer = exitEmptyCareers(careers);
 
@@ -38,27 +38,31 @@ export const Career = () => {
 
   return (
     <>
-      {careers.map((career, index) => (
-        <Fragment key={index}>
+      {careers.map((c, i) => (
+        <Fragment key={i}>
           <Typography variant="h5" component="h3" className={classes.title}>
-            職歴 {index + 1}
+            職歴 {i + 1}
           </Typography>
           <TextField
             className={classes.formField}
             fullWidth
-            label={PROFILE.CAREERS.COMPANY}
-            value={career.company}
-            onChange={(e) => handleChange({ company: e.target.value }, index)}
+            error={!!validation.message.careers[i]?.company}
+            helperText={validation.message.careers[i]?.company}
+            label="会社名"
+            value={c.company}
+            onChange={(e) => handleChange({ company: e.target.value }, i)}
           />
           <TextField
             className={classes.formField}
             fullWidth
-            label={PROFILE.CAREERS.POSITION}
-            value={career.position}
-            onChange={(e) => handleChange({ position: e.target.value }, index)}
+            error={!!validation.message.careers[i]?.position}
+            helperText={validation.message.careers[i]?.position}
+            label="役職"
+            value={c.position}
+            onChange={(e) => handleChange({ position: e.target.value }, i)}
           />
           <div className={classes.careerSpan}>
-            <InputLabel shrink>{PROFILE.CAREERS.SPAN}</InputLabel>
+            <InputLabel shrink>期間</InputLabel>
             <Grid
               container
               spacing={1}
@@ -69,13 +73,13 @@ export const Career = () => {
                 <TextField
                   fullWidth
                   type="month"
+                  error={!!validation.message.careers[i]?.startAt}
+                  helperText={validation.message.careers[i]?.startAt}
                   InputLabelProps={{
                     shrink: true,
                   }}
-                  value={career.startAt}
-                  onChange={(e) =>
-                    handleChange({ startAt: e.target.value }, index)
-                  }
+                  value={c.startAt}
+                  onChange={(e) => handleChange({ startAt: e.target.value }, i)}
                 />
               </Grid>
               <Grid item xs={2}>
@@ -85,25 +89,25 @@ export const Career = () => {
                 <TextField
                   fullWidth
                   type="month"
+                  error={!!validation.message.careers[i]?.endAt}
+                  helperText={validation.message.careers[i]?.endAt}
                   InputLabelProps={{
                     shrink: true,
                   }}
-                  value={career.endAt}
-                  onChange={(e) =>
-                    handleChange({ endAt: e.target.value }, index)
-                  }
+                  value={c.endAt}
+                  onChange={(e) => handleChange({ endAt: e.target.value }, i)}
                 />
               </Grid>
             </Grid>
           </div>
           <Button
             className={classes.button}
-            onClick={() => handleDeleteCareer(index)}
+            onClick={() => handleDeleteCareer(i)}
             fullWidth
             variant="outlined"
             color="secondary"
           >
-            職歴 {index + 1}を削除
+            職歴 {i + 1} を削除
           </Button>
         </Fragment>
       ))}
