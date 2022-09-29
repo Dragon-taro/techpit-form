@@ -1,7 +1,13 @@
 import React from "react";
 
-function App() {
-  return <div>hello</div>;
+import Profile from "./Profile";
+
+const App = () => {
+	return(
+		<>
+			<Profile/>
+		</>
+	)
 }
 
 export default App;
