@@ -1,3 +1,4 @@
+import { Address } from './address'
 import { Gender } from './gender'
 
 export type Profile = {
@@ -5,4 +6,5 @@ export type Profile = {
   description: string
   birthday: string
   gender: Gender
+  address: Address
 }
