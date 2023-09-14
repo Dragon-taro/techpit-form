@@ -27,6 +27,7 @@ const Basic = () => {
 
     return (
         <>
+            {/* 名前と自己紹介 */}
             <TextField 
                 fullWidth 
                 label={PROFILE.NAME}
@@ -43,6 +44,8 @@ const Basic = () => {
                 value={profile.description}
                 onChange={e => handleChange({description: e.target.value})}
             />
+
+            {/* 性別ラジオボタン */}
             <FormControl className={classes.formField}>
                 <FormLabel>{PROFILE.GENDER}</FormLabel>
                 <RadioGroup
@@ -61,6 +64,18 @@ const Basic = () => {
                     />
                 </RadioGroup>
             </FormControl>
+
+            {/* 日付フォーム */}
+            <TextField
+                fullWidth
+                className={PROFILE.BIRTHDAY}
+                type="date"
+                value={profile.birthday}
+                onChange={e => handleChange({birthday: e.target.value})}
+                InputLabelProps={{
+                    shrink: true
+                }}
+            />
         </>
     );
 };
