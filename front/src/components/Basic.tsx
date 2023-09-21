@@ -31,7 +31,7 @@ const Basic = () => {
             <TextField 
                 fullWidth 
                 label={PROFILE.NAME}
-                className={classes.formField} 
+                className={classes.formField}
                 value={profile.name}
                 onChange={e => handleChange({name: e.target.value})}
             />
